@@ -1,126 +1,179 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spark Engineers - Precision Machining</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0; padding: 0;
-            background-color: #f4f4f4;
-        }
-        header {
-            background: #333;
-            color: #fff;
-            padding: 20px 0;
-            text-align: center;
-        }
-        nav {
-            background: #444;
-            padding: 10px;
-            text-align: center;
-        }
-        nav a {
-            color: #fff;
-            margin: 0 15px;
-            text-decoration: none;
-        }
-        .hero {
-            background: url("images/vmc_machine.jpg") no-repeat center center/cover;
-            height: 400px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: rgb(77, 186, 226);
-            font-size: 2em;
-            font-weight: bold;
-        }
-        .content {
-            padding: 40px;
-            text-align: center;
-        }
-        .gallery {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-        .gallery img {
-            width: 300px;
-            height: 200px;
-            object-fit: cover;
-            border: 2px solid #ccc;
-            border-radius: 8px;
-        }
-        footer {
-            background: #5aaff4;
-            color: #edf350;
-            text-align: center;
-            padding: 15px;
-            margin-top: 20px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spark Engineers - Precision Machining</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0; padding: 0;
+      background-color: #f4f4f4;
+    }
+    header {
+      background: #333;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+    }
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    .logo-section img {
+      height: 70px;
+    }
+    .logo-text h1 {
+      margin: 0;
+      font-size: 26px;
+      font-weight: bold;
+      color: #f1c40f;
+    }
+    .logo-text p {
+      margin: 0;
+      font-size: 14px;
+      color: #ddd;
+    }
+    nav {
+      display: flex;
+      gap: 20px;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 16px;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: #f1c40f;
+    }
+    .hero {
+      background: url("images/vmc_machine.jpg") no-repeat center center/cover;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgb(77, 186, 226);
+      font-size: 2em;
+      font-weight: bold;
+    }
+    .content {
+      padding: 40px;
+      text-align: center;
+    }
+    .gallery {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .gallery img {
+      width: 300px;
+      height: 200px;
+      object-fit: cover;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+    }
+    footer {
+      background: #5aaff4;
+      color: #edf350;
+      text-align: center;
+      padding: 15px;
+      margin-top: 20px;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    .contact-info {
+      background: #333;
+      color: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    .contact-info h2 {
+      color: #f1c40f;
+    }
+    .contact-info p {
+      margin: 8px 0;
+      font-size: 16px;
+    }
+  </style>
 </head>
 <body>
 
-    <header style="display: flex; align-items: center; gap: 20px; padding: 20px;">
-    <img src="images/logo.png" alt="Spark Engineers Logo" style="height:80px;">
-    <div>
+  <header>
+    <div class="logo-section">
+      <img src="images/logo.png" alt="Spark Engineers Logo">
+      <div class="logo-text">
         <h1>Spark Engineers</h1>
         <p>Precision Machining for Industrial Excellence</p>
+      </div>
     </div>
-</header>
-
-
-
     <nav>
-        <a href="#">Home</a>
-        <a href="#">Services</a>
-        <a href="#">Gallery</a>
-        <a href="#">Contact</a>
+      <a href="#">Home</a>
+      <a href="#">Services</a>
+      <a href="#contacts">Contacts</a> <!-- link to contact section -->
+      <a href="#gallery">Gallery</a>
+      <a href="#">Customer</a>
+      <a href="#">Career</a>
     </nav>
+  </header>
 
-    <div class="hero">
-        Welcome to Spark Engineers
-    </div>
+  <div class="hero">
+    Welcome to Spark Engineers
+  </div>
 
-    <div class="content">
-        <h2>About Us</h2>
-        <p>
-        Spark Engineers is a VMC machine shop specializing in precision machining 
-        for industries. We deliver high-quality components with accuracy, reliability, 
-        and efficiency.
+  <div class="content">
+    <h2>About Us</h2>
+    <p>
+      Spark Engineers is a VMC machine shop specializing in precision machining 
+      for industries. We deliver high-quality components with accuracy, reliability, 
+      and efficiency.
     </p>
     <p>
-        With a commitment to <strong>manufacturing excellence</strong>, we combine 
-        advanced CNC and VMC technology with skilled engineering to produce 
-        components that meet the highest industry standards. Our team of 
-        <strong>excellence-driven engineers</strong> ensures every project is 
-        executed with innovation, precision, and dedication.
+      With a commitment to <strong>manufacturing excellence</strong>, we combine 
+      advanced CNC and VMC technology with skilled engineering to produce 
+      components that meet the highest industry standards. Our team of 
+      <strong>excellence-driven engineers</strong> ensures every project is 
+      executed with innovation, precision, and dedication.
     </p>
     <p>
-        From prototyping to large-scale production, Spark Engineers provides 
-        end-to-end machining solutions for automotive, aerospace, and industrial 
-        applications. We pride ourselves on delivering not just parts, but 
-        <strong>engineering excellence</strong> that empowers industries to 
-        achieve more.
+      From prototyping to large-scale production, Spark Engineers provides 
+      end-to-end machining solutions for automotive, aerospace, and industrial 
+      applications. We pride ourselves on delivering not just parts, but 
+      <strong>engineering excellence</strong> that empowers industries to 
+      achieve more.
     </p>
+  </div>
 
+  <div class="content" id="gallery">
+    <h2>Our Work</h2>
+    <div class="gallery">
+      <img src="images/machine1.jpg" alt="VMC Machine">
+      <img src="images/machine2.jpg" alt="Precision Machining">
+      <img src="images/machine3.jpg" alt="Industrial Components">
     </div>
+  </div>
 
-    <div class="content">
-        <h2>Our Work</h2>
-        <div class="gallery">
-            <img src="images/machine1.jpg" alt="VMC Machine">
-            <img src="images/machine2.jpg" alt="Precision Machining">
-            <img src="images/machine3.jpg" alt="Industrial Components">
-        </div>
+  <!-- Contact Section -->
+  <div class="content" id="contacts">
+    <div class="contact-info">
+      <h2>Contact Us</h2>
+      <p><strong>Anurag Nagkirti</strong></p>
+      <p>Office Phone: +91 9975082204</p>
+      <p>Mobile: +91 9284812033</p>
+      <p>Email: anagkirti@sparks.com</p>
     </div>
+  </div>
 
-    <footer>
-        <p>&copy; 2026 Spark Engineers | Designed with passion for precision</p>
-    </footer>
+  <footer>
+    <p>&copy; 2026 Spark Engineers | Designed with passion for precision</p>
+  </footer>
 
 </body>
 </html>
