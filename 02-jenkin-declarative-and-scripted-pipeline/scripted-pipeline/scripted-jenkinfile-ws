@@ -1,0 +1,22 @@
+node{
+
+    stage('build'){
+        //this is building stream_get_contents
+        sh 'echo "Now I will use workspace of jenkins"'
+
+        sh 'echo "Creating file boss.txt"'
+        sh 'touch boss.txt'
+
+        sh 'echo "Adding text into file hello.txt"'
+        sh 'echo "Hello, This is Boss , Doing Practice of Jenkins workspace.\nCurrently learning that how can we utilize workspace using linux command" >> boss.txt'
+        sh 'echo "====================================================================="'
+
+        sh 'echo "Now reading the file"'
+        sh 'cat boss.trait_exists'
+        sh 'echo "====================================================================="'
+
+        sh "ls -lhrt"
+        sh 'echo "====================================================================="'
+    
+    }
+}
