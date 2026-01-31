@@ -1,0 +1,25 @@
+pipeline{
+    agent any
+
+    stages{
+
+        stage('Build'){
+            steps{
+                sh 'echo "Now I will use work directory"'
+
+                sh 'echo "creating one file hello.txt"'
+                sh 'touch hello.txt'
+                
+                sh 'echo "Adding text into file hello.txt"'
+                sh 'echo "Hello, This is Anurag , Doing Practice of Jenkins.\nCurrently learning that how can we utilize workspace" >> hello.txt'
+                sh 'echo "====================================================================="'
+
+                sh 'echo "Now I will read the file hello.txt"'
+                sh 'cat hello.txt'
+                sh 'echo "===================================================================="'
+                sh 'echo "==============================FINISH================================"'
+                sh 'echo "===================================================================="'
+            }
+        }
+    }
+}
