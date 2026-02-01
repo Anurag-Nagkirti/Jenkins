@@ -1,25 +1,71 @@
-pipeline {
+pipeline{
     agent any
-    stages {
-        stage('Build') {
-            steps {
-                sh 'mvn clean package'
+
+    stages{
+
+        stage('Checkout'){
+            steps{
+                checkout changelog: false, poll: false, scm: scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Anurag-Nagkirti/Jenkins.git']])
             }
         }
-        stage('Test') {
-            steps {
-                sh 'mvn test'
+        
+        stage('Build'){
+            steps{
+                dir('03-java-jenkins-docker-app') {
+                    sh 'mvn clean package'
+                }
             }
         }
-        stage('Docker Build') {
-            steps {
-                sh 'docker build -t java-jenkins-docker:latest .'
+        
+        stage('Test'){
+            steps{
+                dir('03-java-jenkins-docker-app') {
+                    sh 'mvn test'
+                }
             }
         }
-        stage('Docker Run') {
-            steps {
-                sh 'docker run --rm java-jenkins-docker:latest'
+        
+        stage('Docker build image'){
+            steps{
+                dir('03-java-jenkins-docker-app') {
+                    sh 'docker build -t anuragnagkirti/java-jenkin-docker-app:v2 .'
+                }
             }
-        }        
+        }
+ 
+         stage('Docker run'){
+            steps{
+                dir('03-java-jenkins-docker-app') {
+                    sh 'docker run --rm anuragnagkirti/java-jenkin-docker-app:v2'
+                }
+            }
+        }
+        
+        stage('Docker push image to dockerhub'){
+            steps{
+                dir('03-java-jenkins-docker-app') {
+                    
+                    withCredentials([usernamePassword(credentialsId: 'docker_cred', passwordVariable: 'DOCKER_PASS', usernameVariable: 'DOCKER_USER')]) {
+                        sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
+                        sh 'docker push anuragnagkirti/java-jenkin-docker-app:v2'
+                    }
+                }
+            }
+        }
     }
+
+    post{
+        always{
+            //clean
+        }
+
+        success{
+            sh 'echo "Job is successfully executed"'
+        }
+
+        failure{
+            sh 'echo "Job is failed"'
+        }
+    }
+
 }

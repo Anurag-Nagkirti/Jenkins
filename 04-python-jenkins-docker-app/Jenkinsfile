@@ -1,65 +1,75 @@
-pipeline {
+pipeline{
     agent any
-    stages {
-        stage('Clone Github Repository') {
-            steps {
-                git branch: 'main', changelog: false, poll: false, url: 'https://github.com/theshubhamgour/jenkins-tutorial.git'
-                sh 'pwd'
+
+    stages{
+
+        stage('Git checkout'){
+            steps{
+                sh 'echo "Cloning code from github"'
+                git branch: 'main', changelog: false, poll: false, url: 'https://github.com/Anurag-Nagkirti/Jenkins.git'
             }
-        }        
-        stage('Build') {
-            steps {
-                dir('4-python-jenkins-docker-app') {
+        }
+
+
+        stage('Build'){
+            steps{
+                dir('04-python-jenkins-docker-app') {
+                    sh 'echo "Building the code......"'
                     sh 'python3 -m py_compile app.py'
                 }
             }
         }
-        stage('Test') {
-            steps {
-                dir('4-python-jenkins-docker-app') {
-                    sh 'python3 -m unittest discover tests'
+
+        stage('Test'){
+            steps{
+                dir('04-python-jenkins-docker-app') {
+                sh 'echo "Testing the code......"'
+                sh 'python3 -m unittest discover tests'
                 }
             }
         }
-        stage('Docker Build') {
-            steps {
-                dir('4-python-jenkins-docker-app') {
-                    sh 'docker build -t python-app:latest .'
+
+        stage('docker build image'){
+            steps{
+                dir('04-python-jenkins-docker-app') {
+                sh 'echo "Building the docker image......"'
+                sh 'docker build -t anuragnagkirti/python-jenkins-docker-app:v1 .'
+                }
+            }
+
+        }
+
+        stage('Docker run'){
+            steps{
+                dir('04-python-jenkins-docker-app') {
+                sh 'echo "Running the application......"'
+                sh 'docker run --rm anuragnagkirti/python-jenkins-docker-app:v1'
                 }
             }
         }
-        stage('Docker Run') {
-            steps {
-                dir('4-python-jenkins-docker-app') {
-                    sh 'docker run --rm python-app:latest'
+
+        stage('Docker login and push'){
+            steps{
+                withCredentials([usernamePassword(credentialsId: 'docker_cred', passwordVariable: 'DOCKER_PASS', usernameVariable: 'DOCKER_USER')]) {
+                sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
+                sh 'docker push anuragnagkirti/python-jenkins-docker-app:v1'    
                 }
+
             }
-        } 
-        stage('Docker Tag & Push') {
-            steps {
-                dir('4-python-jenkins-docker-app') {
-                    withCredentials([usernamePassword(credentialsId: 'theshubhamgour',
-                                                      passwordVariable: 'DockerhubPassword',
-                                                      usernameVariable: 'DockerhubUserName')]) {
-                        sh '''
-                            echo "$DockerhubPassword" | docker login -u "$DockerhubUserName" --password-stdin
-                            docker tag python-app:latest theshubhamgour/python-app:latest
-                            docker push theshubhamgour/python-app:latest
-                        '''
-                    }
-                }
-            }
-        }         
+        }
     }
-    post {
-        always {
+
+    post{
+        always{
             cleanWs()
         }
-        success {
-            echo 'Pipeline completed successfully!'
+
+        success{
+            sh 'echo "Job is successfully executed"'
         }
-        failure {
-            echo 'Pipeline failed!'
+
+        failure{
+            sh 'echo "Job is failed"'
         }
     }
 }
