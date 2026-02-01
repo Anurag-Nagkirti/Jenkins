@@ -1,25 +1,27 @@
-pipeline {
-    agent {label 'worker-node'}
-    
-    stages {
-        stage('Build') {
-            steps {
-                // Run build commands
-                sh 'echo "Building project..."'
+pipeline{
+    agent {label "worker-node01"}
+
+    stages{
+
+        stage('Build'){
+            steps{
+                sh 'echo "This is building step..."'
+                sh 'echo "Creating file to test..."'
+                sh 'echo "Hello, This is agent testing setup!" >> agent.txt'
             }
         }
-        
-        stage('Test') {
-            steps {
-                // Run tests
-                sh 'echo "Running tests..."'
+
+        stage('Test'){
+            steps{
+                sh 'cat agent.txt'
+                sh 'echo "file agent.tct is present!"'
             }
         }
-        
-        stage('Creating new file') {
-            steps {
-                // Deploy step (dummy for now)
-                sh 'touch new.txt'
+
+        stage ('Deploy'){
+            steps{
+                sh 'pwd'
+                sh 'echo "Success"'
             }
         }
     }
