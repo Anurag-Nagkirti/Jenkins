@@ -48,9 +48,11 @@ pipeline{
         stage('Docker image pushing'){
             steps{
                 dir('04-python-jenkins-docker-app') {
-                    sh 'echo "pushing docker image to dockerhub"'
-                    sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
-                    sh 'python3 app.py'
+                    withCredentials([usernamePassword(credentialsId: 'docker_credentials', passwordVariable: 'DOCKER_PASS', usernameVariable: 'DOCKER_USER')]) {
+                        sh 'echo "pushing docker image to dockerhub"'
+                        sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
+                        sh 'docker push anuragnagkirti/python-jenkins-docker-app:agent-testing'
+                    }
                 }
             }
         }
