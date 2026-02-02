@@ -1,0 +1,35 @@
+pipeline{
+    agent any
+    
+    environment{
+        DOCKER_IMAGE = 'anuragnagkirti/python-jenkins-docker-app:v1'
+        NEW_IMAGE = 'anuragnagkirti/python-jenkins-docker-app'
+        TAG = 'V5'
+    }
+    
+    stages{
+        stage('Pulling image'){
+            steps{
+                withCredentials([usernamePassword(credentialsId: 'docker_credentials', passwordVariable: 'DOCKER_PASS', usernameVariable: 'DOCKER_USER')]) {
+                    sh 'docker pull ${DOCKER_IMAGE}'
+                }
+            }
+        }
+        
+        stage('Tag Change'){
+            steps{
+                withCredentials([usernamePassword(credentialsId: 'docker_credentials', passwordVariable: 'DOCKER_PASS', usernameVariable: 'DOCKER_USER')]) {
+                    sh 'docker tag ${DOCKER_IMAGE} ${NEW_IMAGE}:${TAG}'
+                }
+            }
+        }
+        
+        stage('Push new image'){
+            steps{
+                withCredentials([usernamePassword(credentialsId: 'docker_credentials', passwordVariable: 'DOCKER_PASS', usernameVariable: 'DOCKER_USER')]) {
+                    sh 'docker push ${NEW_IMAGE}:${TAG}'
+                }
+            }
+        }
+    }
+}
