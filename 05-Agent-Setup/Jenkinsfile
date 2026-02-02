@@ -49,8 +49,9 @@ pipeline{
         stage('Docker login and push image to Dockerhub'){
             steps{
                 dir('03-java-jenkins-docker-app') {
-                    withCredentials([usernamePassword(credentialsId: 'docker_cred', passwordVariable: 'DOCKER_PASS', usernameVariable: 'DOCKER_USER')]) {
-                      sh 'echo DOCKER_PASS | docker login -u DOCKER_USER --password-stdin'
+                    withCredentials([usernamePassword(credentialsId: 'docker_credentials', passwordVariable: 'DOCKER_PASS', usernameVariable: 'DOCKER_USER')]) {
+                      sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
+                      sh 'docker push anuragnagkirti/java-jenkin-docker-app:agent-testing'
                     }
 
                 }
